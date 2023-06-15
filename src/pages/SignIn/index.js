@@ -17,14 +17,15 @@ const SignIn = () => {
         <form>
           <h1>Entrar</h1>
           <input
-            type="text"
-            placeholder="email@email.com"
+            type="email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
-            placeholder="******"
+            placeholder="Senha"
+            minLength="8"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
