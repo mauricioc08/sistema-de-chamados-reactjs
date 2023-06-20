@@ -51,7 +51,7 @@ const SignUp = () => {
           />
 
           <button type="submit" value="Acessar">
-            {loadingAuth ? "Carregando..." : "Cadastrar"}
+            {loadingAuth ? "Cadastrando..." : "Cadastrar"}
           </button>
         </form>
 
