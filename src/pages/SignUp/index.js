@@ -7,6 +7,14 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (name !== "" && email !== "" && password !== "") {
+      alert("funfouu");
+    }
+  }
+
   return (
     <div className="containerCenter">
       <div className="login">
@@ -14,7 +22,7 @@ const SignUp = () => {
           <img src={logo} alt="Logo do sistema de chamado" />
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <h1>Nova Conta</h1>
           <input
             type="text"
