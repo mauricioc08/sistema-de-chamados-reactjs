@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../contexts/auth";
 
 const Dashboard = () => {
+  const { logout } = useContext(AuthContext);
+
+  async function handleLogout() {
+    await logout();
+  }
+
   return (
     <div>
       Dashboard
-      <a href="/">voltar para home</a>
+      <button onClick={handleLogout}>Sair da Conta...</button>
     </div>
   );
 };

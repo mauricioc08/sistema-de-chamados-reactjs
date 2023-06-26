@@ -43,7 +43,7 @@ const SignIn = () => {
           />
 
           <button type="submit" value="Acessar">
-            {loadingAuth ? "Acessando..." : "Acessar"}
+            {loadingAuth ? "Carregando..." : "Acessar"}
           </button>
         </form>
 
