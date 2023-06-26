@@ -8,13 +8,15 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, loadingAuth } = useContext(AuthContext);
 
-  function handleSignIn(e) {
+  async function handleSignIn(e) {
     e.preventDefault();
     if (email !== "" && password !== "") {
-      signIn(email, password);
+      await signIn(email, password);
     }
+    setEmail("");
+    setPassword("");
   }
 
   return (
@@ -41,7 +43,7 @@ const SignIn = () => {
           />
 
           <button type="submit" value="Acessar">
-            Acessar
+            {loadingAuth ? "Acessando..." : "Acessar"}
           </button>
         </form>
 
