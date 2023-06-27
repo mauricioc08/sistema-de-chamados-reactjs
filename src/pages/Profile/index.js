@@ -5,6 +5,10 @@ import { FiSettings, FiUpload } from "react-icons/fi";
 import avatar from "../../assets/avatar.png";
 import { AuthContext } from "../../contexts/auth";
 import "./profile.css";
+import { doc, updateDoc } from "firebase/firestore";
+import { db, storage } from "../../services/firebaseConnections";
+import { toast } from "react-toastify";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Profile = () => {
   const { user, storageUser, setUser, logout } = useContext(AuthContext);
@@ -28,6 +32,56 @@ const Profile = () => {
     }
   }
 
+  async function handleUpload() {
+    const currentUid = user.uid;
+    const uploadRef = ref(storage, `images/${currentUid}/${imageAvatar.name}`);
+    const uploadTask = uploadBytes(uploadRef, imageAvatar).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then(async (dowloadURL) => {
+        let urlFoto = dowloadURL;
+
+        const docRef = doc(db, "users", user.uid);
+        await updateDoc(docRef, {
+          avatarUrl: urlFoto,
+          nome: nome,
+        }).then(() => {
+          let data = {
+            ...user,
+            nome: nome,
+            avatarUrl: urlFoto,
+          };
+          setUser(data);
+          storageUser(data);
+          toast.success("Atualizado com Sucesso!");
+        });
+      });
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (imageAvatar === null && nome !== "") {
+      const docRef = doc(db, "users", user.uid);
+      await updateDoc(docRef, {
+        nome: nome,
+      })
+        .then(() => {
+          let data = {
+            ...user,
+            nome: nome,
+          };
+          setUser(data);
+          storageUser(data);
+          toast.success("Atualizado com Sucesso!");
+        })
+        .catch((error) => {
+          toast.error("Algo deu errado!!" + error);
+        });
+    } else if (nome !== "" && imageAvatar !== null) {
+      handleUpload();
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -37,7 +91,7 @@ const Profile = () => {
         </Title>
 
         <div className="container">
-          <form className="formProfile">
+          <form className="formProfile" onSubmit={handleSubmit}>
             <label className="labelAvatar">
               <span>
                 <FiUpload color="#fff" size={25} />
