@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/auth";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
 import { FiPlus, FiMessageSquare, FiSearch, FiEdit2 } from "react-icons/fi";
@@ -70,7 +69,7 @@ const Dashboard = () => {
     setLoadingMore(true);
     const q = query(
       listRef,
-      orderBy("created", "dist"),
+      orderBy("created", "desc"),
       startAfter(lastDocs),
       limit(5)
     );
@@ -138,7 +137,10 @@ const Dashboard = () => {
                         <td data-label="Status">
                           <span
                             className="badge"
-                            style={{ background: "#999" }}
+                            style={{
+                              background:
+                                item.status === "Aberto" ? "#5cb85c" : "#999",
+                            }}
                           >
                             {item.status}
                           </span>
@@ -151,12 +153,13 @@ const Dashboard = () => {
                           >
                             <FiSearch color="#fff" size={25} />
                           </button>
-                          <button
+                          <Link
+                            to={`/new/${item.id}`}
                             className="action"
                             style={{ background: "#f6a935" }}
                           >
                             <FiEdit2 color="#fff" size={25} />
-                          </button>
+                          </Link>
                         </td>
                       </tr>
                     );
