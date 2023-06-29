@@ -5,7 +5,8 @@ import "./new.css";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { db } from "../../services/firebaseConnections";
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, addDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const listRef = collection(db, "customers");
 
@@ -58,11 +59,29 @@ const New = () => {
   }
 
   function handleChangeCustomer(e) {
-    setCustomerSelected(customers[e.target.value].nomeFantasia);
+    setCustomerSelected(e.target.value);
   }
 
   async function handleRegister(e) {
     e.preventDefault();
+
+    await addDoc(collection(db, "chamados"), {
+      created: new Date(),
+      cliente: customers[customerSelected].nomeFantasia,
+      clienteId: customers[customerSelected].id,
+      assunto: assunto,
+      complemento: complemento,
+      status: status,
+      userId: user.uid,
+    })
+      .then(() => {
+        toast.success("Chamado registrado!");
+        setComplemento("");
+        setCustomerSelected(0);
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
   }
 
   return (
