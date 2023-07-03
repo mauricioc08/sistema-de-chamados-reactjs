@@ -1,20 +1,29 @@
+import { db } from "../../services/firebaseConnections";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
-import { FiPlus, FiMessageSquare, FiSearch, FiEdit2 } from "react-icons/fi";
+import {
+  FiPlus,
+  FiMessageSquare,
+  FiSearch,
+  FiEdit2,
+  FiX,
+} from "react-icons/fi";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
 import {
   collection,
   getDocs,
+  doc,
   orderBy,
   limit,
   startAfter,
   query,
+  deleteDoc,
 } from "firebase/firestore";
-import { db } from "../../services/firebaseConnections";
 import { format } from "date-fns";
 import Modal from "../../components/Modal";
+import { toast } from "react-toastify";
 
 const listRef = collection(db, "chamados");
 
@@ -24,6 +33,8 @@ const Dashboard = () => {
   const [isEmpyt, setIsEmpyt] = useState(false);
   const [lastDocs, setLastDocs] = useState();
   const [loadingMore, setLoadingMore] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [detail, setDetail] = useState();
 
   useEffect(() => {
     async function loadChamados() {
@@ -95,6 +106,23 @@ const Dashboard = () => {
     );
   }
 
+  async function handleDelete(chamadoId) {
+    if (window.confirm("Tem certeza que deseja excluir este chamado?")) {
+      try {
+        await deleteDoc(doc(db, "chamados", chamadoId));
+        setChamados(chamados.filter((chamado) => chamado.id !== chamadoId));
+        toast.success("Chamado excluído com sucesso!");
+      } catch (error) {
+        toast.error("Erro ao excluir o chamado:", error);
+      }
+    }
+  }
+
+  function toggleModal(item) {
+    setShowModal(!showModal);
+    setDetail(item);
+  }
+
   return (
     <div>
       <Header />
@@ -126,7 +154,7 @@ const Dashboard = () => {
                     <th scope="col">Assunto</th>
                     <th scope="col">Status</th>
                     <th scope="col">Cadastrado</th>
-                    <th scope="col">#</th>
+                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -149,8 +177,10 @@ const Dashboard = () => {
                         <td data-label="Cadastrado">{item.createdFormat}</td>
                         <td data-label="#">
                           <button
+                            onClick={() => toggleModal(item)}
                             className="action"
                             style={{ background: "#3583f6" }}
+                            title="Visualizar Chamado"
                           >
                             <FiSearch color="#fff" size={25} />
                           </button>
@@ -158,9 +188,18 @@ const Dashboard = () => {
                             to={`/new/${item.id}`}
                             className="action"
                             style={{ background: "#f6a935" }}
+                            title="Editar Chamado"
                           >
                             <FiEdit2 color="#fff" size={25} />
                           </Link>
+                          <button
+                            onClick={() => handleDelete(item.id)}
+                            className="action"
+                            style={{ background: "rgba(247, 3, 3, 0.856)" }}
+                            title="Excluir Chamado"
+                          >
+                            <FiX size={25} color="#fff" />
+                          </button>
                         </td>
                       </tr>
                     );
@@ -177,7 +216,9 @@ const Dashboard = () => {
           )}
         </>
       </div>
-      <Modal />
+      {showModal && (
+        <Modal conteudo={detail} close={() => setShowModal(!showModal)} />
+      )}
     </div>
   );
 };

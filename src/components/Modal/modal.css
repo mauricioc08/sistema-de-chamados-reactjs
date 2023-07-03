@@ -33,6 +33,9 @@
     padding: 4px 15px;
     color: #fff;
 }
+.close:hover{
+    background: linear-gradient(#bb1313, #bd0101);
+}
 
 .close svg{
     margin-right: 5px;
@@ -62,4 +65,9 @@
 
 .row{
     margin-bottom: 1em;
+}
+
+.row .status{
+    margin-left: 1em;
+    border-radius: 4px;
 }

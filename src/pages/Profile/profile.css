@@ -68,5 +68,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    transition: .5s;
+}
+
+.logoutBtn:hover{
+    background: linear-gradient(#b61e1e, #f80000);
 }

@@ -19,3 +19,7 @@ form input[type="radio"]:not(:first-child){
 .status{
     margin-bottom: 1em;
 }
+
+button:hover{
+    background: linear-gradient(#195083, #135a86);
+}

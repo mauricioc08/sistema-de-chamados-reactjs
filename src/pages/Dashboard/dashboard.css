@@ -97,6 +97,11 @@ table td .badge{
     border-radius: 5px;
     font-size: 1.1em;
     color: #fff;
+    transition: 0.3s;
+}
+
+.btnMore:hover{
+    background: linear-gradient(#195083, #135a86);
 }
 
 @media(max-width: 600px){
@@ -138,3 +143,4 @@ table td .badge{
         text-transform: uppercase;
     }
 }
+
