@@ -30,6 +30,12 @@ const Header = () => {
         <FiSettings color="#fff" size={24} />
         Perfil
       </Link>
+      {user.rules == "1" && (
+        <Link to="#">
+          <FiSettings color="#fff" size={24} />
+          Regras
+        </Link>
+      )}
     </div>
   );
 };

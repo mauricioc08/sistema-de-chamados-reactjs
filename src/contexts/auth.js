@@ -45,6 +45,7 @@ function AuthProvider({ children }) {
           nome: docSnap.data().nome,
           email: value.user.email,
           avatarUrl: docSnap.data().avatarUrl,
+          rules: docSnap.data().rules,
         };
 
         setUser(data);
@@ -70,12 +71,14 @@ function AuthProvider({ children }) {
         await setDoc(doc(db, "users", uid), {
           nome: name,
           avatarUrl: null,
+          rules: 2,
         }).then(() => {
           let data = {
             uid: uid,
             nome: name,
             email: value.user.email,
             avatarUrl: null,
+            rules: 2,
           };
           setUser(data);
           storageUser(data);

@@ -1,5 +1,5 @@
 import { db } from "../../services/firebaseConnections";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
 import {
@@ -24,10 +24,12 @@ import {
 import { format } from "date-fns";
 import Modal from "../../components/Modal";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../contexts/auth";
 
 const listRef = collection(db, "chamados");
 
 const Dashboard = () => {
+  const { user } = useContext(AuthContext);
   const [chamados, setChamados] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEmpyt, setIsEmpyt] = useState(false);
@@ -57,6 +59,11 @@ const Dashboard = () => {
       let lista = [];
 
       querySnapshot.forEach((doc) => {
+        console.log(doc.data().userId, user.uid);
+
+        if (doc.data().userId !== user.uid && user.rules == "2") {
+          return;
+        }
         lista.push({
           id: doc.id,
           assunto: doc.data().assunto,
@@ -66,6 +73,7 @@ const Dashboard = () => {
           createdFormat: format(doc.data().created.toDate(), "dd/MM/yyyy"),
           status: doc.data().status,
           complemento: doc.data().complemento,
+          userId: doc.data().userId,
         });
       });
       const lastDocs = querySnapshot.docs[querySnapshot.docs.length - 1];
