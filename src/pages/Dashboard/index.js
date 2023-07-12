@@ -59,7 +59,7 @@ const Dashboard = () => {
       let lista = [];
 
       querySnapshot.forEach((doc) => {
-        console.log(doc.data().userId, user.uid);
+        // console.log(doc.data().userId, user.uid);
 
         if (doc.data().userId !== user.uid && user.rules == "2") {
           return;

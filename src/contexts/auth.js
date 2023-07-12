@@ -6,6 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -71,12 +72,15 @@ function AuthProvider({ children }) {
         await setDoc(doc(db, "users", uid), {
           nome: name,
           avatarUrl: null,
+          email: value.user.email,
+          created: format(new Date(), "dd/MM/yyyy"),
           rules: 2,
         }).then(() => {
           let data = {
             uid: uid,
             nome: name,
             email: value.user.email,
+            createdFormat: new Date(),
             avatarUrl: null,
             rules: 2,
           };

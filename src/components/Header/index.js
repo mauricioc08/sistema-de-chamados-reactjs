@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
 import avatarImg from "../../assets/avatar.png";
-import { FiHome, FiUser, FiSettings } from "react-icons/fi";
+import { FiHome, FiUser, FiSettings, FiGlobe } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./header.css";
 
@@ -31,8 +31,8 @@ const Header = () => {
         Perfil
       </Link>
       {user.rules == "1" && (
-        <Link to="#">
-          <FiSettings color="#fff" size={24} />
+        <Link to="/rules">
+          <FiGlobe color="#fff" size={24} />
           Regras
         </Link>
       )}

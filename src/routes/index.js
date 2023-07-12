@@ -8,6 +8,7 @@ import Customers from "../pages/Customers";
 import New from "../pages/New";
 
 import Private from "./Private";
+import Rules from "../pages/Rules";
 
 function RoutesApp() {
   return (
@@ -51,6 +52,15 @@ function RoutesApp() {
         element={
           <Private>
             <New />
+          </Private>
+        }
+      />
+
+      <Route
+        path="/rules"
+        element={
+          <Private>
+            <Rules />
           </Private>
         }
       />
