@@ -2,43 +2,54 @@ import React, { useContext, useEffect, useState } from "react";
 import "./rules.css";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
-import { db } from "../../services/firebaseConnections";
+import { db, auth } from "../../services/firebaseConnections";
 import {
   collection,
   getDocs,
   doc,
   orderBy,
   query,
+  onSnapshot,
   deleteDoc,
 } from "firebase/firestore";
 import { FiGlobe, FiX } from "react-icons/fi";
 import { AuthContext } from "../../contexts/auth";
-import { toDate, format } from "date-fns";
+import avatar from "../../assets/avatar.png";
+import { toast } from "react-toastify";
 
 const Rules = () => {
   const { user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [lastDocs, setLastDocs] = useState();
 
-  function deleteUser() {
-    alert("testttttt");
+  async function deleteUser(userId) {
+    if (window.confirm("Tem certeza que deseja excluir este chamado?")) {
+      try {
+        await deleteDoc(doc(db, "users", userId));
+        setUsers(users.filter((user) => user.id !== userId));
+        toast.success("Chamado excluído com sucesso!");
+      } catch (error) {
+        toast.error("Erro ao excluir o chamado:", error);
+      }
+    }
   }
 
   useEffect(() => {
-    loadUsers();
+    const unsubscribe = loadUsers();
+    return () => unsubscribe();
   }, []);
 
-  async function loadUsers() {
+  const loadUsers = () => {
     const listRef = collection(db, "users");
-    const querySnapshot = await getDocs(listRef);
-    const userList = [];
-    querySnapshot.forEach((doc) => {
-      userList.push(doc.data());
+    const usersQuery = query(listRef, orderBy("created", "desc"));
+    return onSnapshot(usersQuery, (snapshot) => {
+      const userList = [];
+      snapshot.forEach((doc) => {
+        userList.push(doc.data());
+      });
+      console.log(userList);
+      setUsers(userList);
     });
-    console.log(userList);
-    setUsers(userList);
-  }
+  };
 
   return (
     <>
@@ -56,7 +67,7 @@ const Rules = () => {
                   <th scope="col">Usuários</th>
                   <th scope="col">Email</th>
                   <th scope="col">Nivel de acesso</th>
-                  <th scope="col">Cadastrado</th>
+                  <th scope="col">Foto de Perfil</th>
                   <th scope="col">Ações</th>
                 </tr>
               </thead>
@@ -78,10 +89,26 @@ const Rules = () => {
                         {item.rules}
                       </span>
                     </td>
-                    <td data-label="Cadastrado"></td>
+                    <td data-label="Cadastrado">
+                      {item.avatarUrl === null ? (
+                        <img
+                          src={avatar}
+                          alt="foto de perfil"
+                          width={40}
+                          height={40}
+                        />
+                      ) : (
+                        <img
+                          src={item.avatarUrl}
+                          alt="foto de perfil"
+                          width={40}
+                          height={40}
+                        />
+                      )}
+                    </td>
                     <td data-label="#">
                       <button
-                        onClick={deleteUser}
+                        onClick={() => deleteUser(item.uid)}
                         className="action"
                         style={{ background: "rgba(247, 3, 3, 0.856)" }}
                         title="Excluir Dados de Usuário"

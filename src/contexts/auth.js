@@ -70,17 +70,18 @@ function AuthProvider({ children }) {
         let uid = value.user.uid;
 
         await setDoc(doc(db, "users", uid), {
+          uid: uid,
           nome: name,
           avatarUrl: null,
           email: value.user.email,
-          created: format(new Date(), "dd/MM/yyyy"),
+          created: new Date(),
           rules: 2,
         }).then(() => {
           let data = {
             uid: uid,
             nome: name,
             email: value.user.email,
-            createdFormat: new Date(),
+            createdFormat: format(new Date(), "dd/MM/yyyy"),
             avatarUrl: null,
             rules: 2,
           };

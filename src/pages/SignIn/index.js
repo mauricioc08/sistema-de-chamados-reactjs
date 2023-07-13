@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./signin.css";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.gif";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth";
 
