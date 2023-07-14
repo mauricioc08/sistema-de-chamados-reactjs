@@ -92,5 +92,4 @@ O aplicativo será executado em http://localhost:3000.
 ## Contribuição
 Contribuições são bem-vindas! Se você tiver algum problema, sugestão ou solicitação de recursos, fique à vontade para abrir uma issue ou enviar um pull request.
 
-## Licença
-- Este projeto está licenciado sob a MIT License.
+Link do Projeto: https://sistema-de-chamados-reactjs.vercel.app/
