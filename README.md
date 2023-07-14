@@ -1,4 +1,4 @@
-# Sistema de Chamados
+# Sistema de Chamados em Reactjs
 
 O Sistema de Chamados é um aplicativo de gerenciamento de chamados de suporte. Os usuários podem criar chamados, acompanhar o status e receber suporte personalizado. Os administradores têm acesso a recursos adicionais, como gerenciamento de usuários, categorias de chamados e relatórios.
 
@@ -18,7 +18,7 @@ Siga estas etapas para configurar e executar o projeto localmente:
 1. Clone o repositório:
 
 ```bash
-git clone <URL DO REPOSITÓRIO>
+git clone https://github.com/mauricioc08/sistema-de-chamados-reactjs.git
 ```
 Navegue para o diretório do projeto:
 
@@ -58,12 +58,12 @@ O aplicativo será executado em http://localhost:3000.
 - Clique em "Cadastre-se" para criar uma nova conta. Preencha o formulário de cadastro com seu nome, e-mail e senha e clique em "Registrar".
 - Se você já tiver uma conta, clique em "Login" e insira seu e-mail e senha para fazer login no sistema.
 ## Cadastro de Usuário
-- Após fazer login, você poderá editar suas informações de perfil clicando em "Editar Perfil" no canto superior direito da página.
-- No formulário de edição de perfil, você pode alterar seu nome, e-mail e senha. Clique em "Salvar" para atualizar suas informações.
+- Após fazer login, você poderá editar suas informações de perfil clicando em "Perfil" no canto superior esquerdo da página.
+- No formulário de edição de perfil, você pode alterar seu nome e foto. Clique em "Salvar" para atualizar suas informações.
 ## Cadastro de Empresa
 - Os administradores podem cadastrar empresas no sistema.
-- Na página "Administração" (acessível apenas para administradores), clique em "Empresas".
-- Na página de empresas, você pode adicionar uma nova empresa clicando em "Adicionar Empresa". Preencha o formulário com o nome e descrição da empresa e clique em "Salvar".
+- Na página "Clientes".
+- Na página de Clientes, você pode adicionar uma nova empresa clicando em "Adicionar Empresa". Preencha o formulário com o nome e descrição da empresa e clique em "Salvar".
 ## Cadastro de Chamados
 - Na página inicial, você pode criar um novo chamado clicando em "Novo Chamado".
 - Preencha o formulário de criação do chamado com as informações necessárias, como título, descrição e categoria.
@@ -73,9 +73,9 @@ O aplicativo será executado em http://localhost:3000.
 - Clique em um chamado para ver detalhes adicionais, como o status atual, as respostas e as interações relacionadas.
 ## Gerenciamento de Usuários (Administradores)
 - Os administradores têm acesso ao gerenciamento de usuários.
-- Na página "Administração", clique em "Usuários".
-- Na página de usuários, você pode visualizar a lista de usuários registrados no sistema.
-- É possível editar as informações do usuário, como nome, e-mail, senha e papel (usuário ou administrador).
+- Na página "Administração", clique em "Regras".
+- Na página de regras, você pode visualizar a lista de usuários registrados no sistema.
+- É possível editar as informações do usuário, .
 - Os administradores também têm a opção de excluir um usuário do sistema.
 ## Gerenciamento de Empresas (Administradores)
 - Os administradores têm acesso ao gerenciamento de empresas.
