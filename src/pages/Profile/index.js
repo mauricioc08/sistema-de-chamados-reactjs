@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Profile = () => {
-  const { user, storageUser, setUser, logout } = useContext(AuthContext);
+  const { user, storageUser, setUser } = useContext(AuthContext);
   const [avatarUrl, setAvatarUrl] = useState(user && user.avatarUrl);
   const [nome, setNome] = useState(user && user.nome);
   const [email, setEmail] = useState(user && user.email);
@@ -127,12 +127,6 @@ const Profile = () => {
 
             <button type="submit">Salvar</button>
           </form>
-        </div>
-
-        <div className="container">
-          <button className="logoutBtn" onClick={() => logout()}>
-            Sair
-          </button>
         </div>
       </div>
     </div>

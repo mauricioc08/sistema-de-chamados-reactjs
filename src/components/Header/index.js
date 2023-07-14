@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
 import avatarImg from "../../assets/avatar.png";
-import { FiHome, FiUser, FiSettings, FiGlobe } from "react-icons/fi";
+import { FiHome, FiUser, FiSettings, FiGlobe, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./header.css";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div className="sidebar">
@@ -36,6 +36,10 @@ const Header = () => {
           Regras
         </Link>
       )}
+      <Link className="btnClosed" onClick={() => logout()}>
+        <FiX color="#fff" size={25} />
+        Sair
+      </Link>
     </div>
   );
 };

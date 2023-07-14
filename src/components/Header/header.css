@@ -58,6 +58,11 @@
     padding: 1px 16px;
 }
 
+.btnClosed:hover{
+    background: linear-gradient(#bb1313, #bd0101)
+    !important;
+}
+
 @media(max-width: 700px){
     .sidebar{
         width: 100%;

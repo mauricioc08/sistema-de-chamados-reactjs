@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import "./rules.css";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
-import { db, auth } from "../../services/firebaseConnections";
+import { db } from "../../services/firebaseConnections";
 import {
   collection,
-  getDocs,
   doc,
   orderBy,
   query,
@@ -20,12 +19,29 @@ import { toast } from "react-toastify";
 const Rules = () => {
   const { user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadUsers = () => {
+      const listRef = collection(db, "users");
+      const usersQuery = query(listRef, orderBy("created", "desc"));
+      return onSnapshot(usersQuery, (snapshot) => {
+        const userList = [];
+        snapshot.forEach((doc) => {
+          userList.push(doc.data());
+        });
+        setUsers(userList);
+        setLoading(false);
+      });
+    };
+    loadUsers();
+  }, []);
 
   async function deleteUser(userId) {
-    if (window.confirm("Tem certeza que deseja excluir este chamado?")) {
+    if (window.confirm("Tem certeza que deseja excluir este usuário?")) {
       try {
         await deleteDoc(doc(db, "users", userId));
-        setUsers(users.filter((user) => user.id !== userId));
+        setUsers(users.filter((user) => user.uid !== userId));
         toast.success("Chamado excluído com sucesso!");
       } catch (error) {
         toast.error("Erro ao excluir o chamado:", error);
@@ -33,23 +49,22 @@ const Rules = () => {
     }
   }
 
-  useEffect(() => {
-    const unsubscribe = loadUsers();
-    return () => unsubscribe();
-  }, []);
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <div className="content">
+          <Title name="Tickets">
+            <FiGlobe size={25} />
+          </Title>
 
-  const loadUsers = () => {
-    const listRef = collection(db, "users");
-    const usersQuery = query(listRef, orderBy("created", "desc"));
-    return onSnapshot(usersQuery, (snapshot) => {
-      const userList = [];
-      snapshot.forEach((doc) => {
-        userList.push(doc.data());
-      });
-      console.log(userList);
-      setUsers(userList);
-    });
-  };
+          <div className="container dashboard">
+            <span>Buscando usuários...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
