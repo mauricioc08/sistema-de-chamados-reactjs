@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# Sistema de Chamados
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O Sistema de Chamados é um aplicativo de gerenciamento de chamados de suporte. Os usuários podem criar chamados, acompanhar o status e receber suporte personalizado. Os administradores têm acesso a recursos adicionais, como gerenciamento de usuários, categorias de chamados e relatórios.
 
-## Available Scripts
+## Pré-requisitos
 
-In the project directory, you can run:
+Antes de começar, certifique-se de cumprir os seguintes requisitos:
 
-### `npm start`
+- Node.js instalado
+- Conta do Firebase com projeto configurado
+- Banco de dados Firestore configurado no projeto do Firebase
+- Autenticação com e-mail/senha configurada no projeto do Firebase
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Instalação
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Siga estas etapas para configurar e executar o projeto localmente:
 
-### `npm test`
+1. Clone o repositório:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone <URL DO REPOSITÓRIO>
+```
+Navegue para o diretório do projeto:
 
-### `npm run build`
+```bash
+cd sistema-chamados
+```
+Instale as dependências do projeto:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+```
+Configure as variáveis de ambiente:
+Crie um arquivo .env na raiz do projeto e defina as seguintes variáveis de ambiente:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+REACT_APP_API_KEY=<SUA_API_KEY_DO_FIREBASE>
+REACT_APP_AUTH_DOMAIN=<SEU_AUTH_DOMAIN_DO_FIREBASE>
+REACT_APP_PROJECT_ID=<SEU_PROJECT_ID_DO_FIREBASE>
+REACT_APP_STORAGE_BUCKET=<SEU_STORAGE_BUCKET_DO_FIREBASE>
+REACT_APP_MESSAGING_SENDER_ID=<SEU_MESSAGING_SENDER_ID_DO_FIREBASE>
+REACT_APP_APP_ID=<SEU_APP_ID_DO_FIREBASE>
+```
+Certifique-se de substituir os valores <...> pelas informações corretas do seu projeto do Firebase.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Execute o projeto:
 
-### `npm run eject`
+```bash
+npm start
+```
+O aplicativo será executado em http://localhost:3000.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Uso
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Autenticação
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Na página inicial, você encontrará opções para fazer login ou se cadastrar como um novo usuário.
+- Clique em "Cadastre-se" para criar uma nova conta. Preencha o formulário de cadastro com seu nome, e-mail e senha e clique em "Registrar".
+- Se você já tiver uma conta, clique em "Login" e insira seu e-mail e senha para fazer login no sistema.
+## Cadastro de Usuário
+- Após fazer login, você poderá editar suas informações de perfil clicando em "Editar Perfil" no canto superior direito da página.
+- No formulário de edição de perfil, você pode alterar seu nome, e-mail e senha. Clique em "Salvar" para atualizar suas informações.
+## Cadastro de Empresa
+- Os administradores podem cadastrar empresas no sistema.
+- Na página "Administração" (acessível apenas para administradores), clique em "Empresas".
+- Na página de empresas, você pode adicionar uma nova empresa clicando em "Adicionar Empresa". Preencha o formulário com o nome e descrição da empresa e clique em "Salvar".
+## Cadastro de Chamados
+- Na página inicial, você pode criar um novo chamado clicando em "Novo Chamado".
+- Preencha o formulário de criação do chamado com as informações necessárias, como título, descrição e categoria.
+- Após criar o chamado, ele será exibido na lista de chamados na página inicial.
+## Acompanhamento de Chamados
+- Na página inicial, você pode ver uma lista dos chamados criados por você.
+- Clique em um chamado para ver detalhes adicionais, como o status atual, as respostas e as interações relacionadas.
+## Gerenciamento de Usuários (Administradores)
+- Os administradores têm acesso ao gerenciamento de usuários.
+- Na página "Administração", clique em "Usuários".
+- Na página de usuários, você pode visualizar a lista de usuários registrados no sistema.
+- É possível editar as informações do usuário, como nome, e-mail, senha e papel (usuário ou administrador).
+- Os administradores também têm a opção de excluir um usuário do sistema.
+## Gerenciamento de Empresas (Administradores)
+- Os administradores têm acesso ao gerenciamento de empresas.
+- Na página "Administração", clique em "Empresas".
+- Na página de empresas, você pode visualizar a lista de empresas cadastradas no sistema.
+- É possível editar as informações da empresa, como nome e descrição.
+- Os administradores também têm a opção de excluir uma empresa do sistema.
+## Gerenciamento de Chamados (Administradores)
+- Os administradores têm acesso ao gerenciamento de chamados.
+- Na página "Administração", clique em "Chamados".
+- Na página de chamados, você pode visualizar a lista de todos os chamados registrados no sistema.
+- É possível filtrar os chamados por categoria e status.
+- Os administradores podem alterar o status de um chamado, atribuí-lo a um usuário específico e adicionar respostas.
+## Contribuição
+Contribuições são bem-vindas! Se você tiver algum problema, sugestão ou solicitação de recursos, fique à vontade para abrir uma issue ou enviar um pull request.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Licença
+- Este projeto está licenciado sob a MIT License.
